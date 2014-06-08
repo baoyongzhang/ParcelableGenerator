@@ -14,7 +14,7 @@ ParcelableGenerator可以解决Parcelable使用麻烦的问题，让使用Parcel
 
 ## 使用方法
 
-例如我们有一个User类，用来保存用户的一些信息，我们需要使用@Parcelable修改该类
+例如我们有一个User类，用来保存用户的一些信息，我们需要使用@Parcelable修饰该类
 
 ```java
 import com.baoyz.pg.Parcelable;
@@ -49,15 +49,15 @@ public class User {
 ```java
 import com.baoyz.pg.PG;
 
-    // 模拟创建对象，并设置属性值 
-		User user = new User();
-		user.setName("zhangsan");
-		user.setAge(18);
+// 模拟创建对象，并设置属性值 
+User user = new User();
+user.setName("zhangsan");
+user.setAge(18);
 		
-		Intent intent = new Intent(this, ShowUserActivity.class);
-		// 调用PG将对象转换成Parcelable，传入Intent中
-		intent.putExtra("user", PG.createParcelable(user));
-		startActivity(intent);
+Intent intent = new Intent(this, ShowUserActivity.class);
+// 调用PG将对象转换成Parcelable，传入Intent中
+intent.putExtra("user", PG.createParcelable(user));
+startActivity(intent);
 ```
 
 在ShowUserActivity中获取User对象，无需写任何转换的代码，直接getIntent().getParcelableExtra()赋值给原对象类型变量即可。
@@ -81,3 +81,9 @@ public class ShowUserActivity extends Activity {
 }
 ```
 
+## 在你的项目中使用
+
+将jar包导入到项目中，jar包只有10Kb大小，相当轻巧。
+<p>
+<a href=""https://github.com/baoyongzhang/ParcelableGenerator/raw/master/pg1.0.jar alt="download jar" size="20px">download jar<a>
+</p>
