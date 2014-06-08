@@ -1,4 +1,4 @@
-package com.baoyz.pg.library;
+package com.baoyz.pg;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.CLASS;

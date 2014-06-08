@@ -1,11 +1,11 @@
-package com.baoyz.pg.library;
+package com.baoyz.pg;
 
 /**
  * 
  * @author baoyz
  * @date 2014-6-8ионГ1:35:08
  */
-public class ProxyInfo {
+class ProxyInfo {
 
 	private static final String SUFFIX = "$$Parcelable";
 

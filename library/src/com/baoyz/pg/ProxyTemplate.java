@@ -1,11 +1,11 @@
-package com.baoyz.pg.library;
+package com.baoyz.pg;
 
 /**
  * 
  * @author baoyz
  * @date 2014-6-8ионГ1:35:16
  */
-public class ProxyTemplate {
+class ProxyTemplate {
 
 	private static final String PACKAGE = "%package";
 	private static final String PROXY = "%proxy";
@@ -25,7 +25,7 @@ public class ProxyTemplate {
 			+ ""
 			+ "import android.os.Parcel;"
 			+ "import android.os.Parcelable;"
-			+ "import com.baoyz.pg.library.PGUtils;"
+			+ "import com.baoyz.pg.PGUtils;"
 			+ ""
 			+ "public class %proxy extends %class implements Parcelable {"
 			+ ""

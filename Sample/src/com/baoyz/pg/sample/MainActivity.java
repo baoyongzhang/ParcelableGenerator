@@ -1,10 +1,7 @@
 package com.baoyz.pg.sample;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-
-import com.baoyz.pg.library.PG;
+import java.util.Arrays;
+import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,13 +10,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+import com.baoyz.pg.PG;
+
 public class MainActivity extends Activity implements OnClickListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
 		TextView tv = (TextView) findViewById(R.id.textView);
 
 		findViewById(R.id.bt).setOnClickListener(this);
@@ -31,6 +30,16 @@ public class MainActivity extends Activity implements OnClickListener {
 		User user = new User();
 		user.setName("zhangsan");
 		user.setAge(18);
+		user.setBalance(100.85);
+		user.setId(11111l);
+		user.setList(Arrays.asList("¹þ¹þ¹þ", "ºÇºÇºÇ", "ÍÛÍÛÍÛ"));
+		user.setVip(true);
+		HashMap<Integer, String> map = new HashMap<Integer, String>();
+		map.put(1, "value1");
+		map.put(2, "value2");
+		user.setMap(map);
+		user.setStrArray(new String[] { "str1", "str2" });
+		user.setIntArray(new int[] { 1, 2, 3, 4, 5 });
 		intent.putExtra("user", PG.createParcelable(user));
 		startActivity(intent);
 	}

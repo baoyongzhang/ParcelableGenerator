@@ -14,7 +14,7 @@ public class ShowUserActivity extends Activity {
 		User user = getIntent().getParcelableExtra("user");
 		
 		TextView tv = (TextView) findViewById(R.id.textView);
-		tv.setText(user.getName() + ", " + user.getAge());
+		tv.setText(user.toString());
 	}
 
 }

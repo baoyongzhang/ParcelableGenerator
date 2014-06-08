@@ -2,7 +2,7 @@ package %package;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import com.baoyz.pg.library.PGUtils;
+import com.baoyz.pg.PGUtils;
 
 public class %proxy extends %class implements Parcelable {
 

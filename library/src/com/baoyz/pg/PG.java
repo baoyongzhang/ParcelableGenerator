@@ -1,4 +1,4 @@
-package com.baoyz.pg.library;
+package com.baoyz.pg;
 
 import java.lang.reflect.Constructor;
 

@@ -1,4 +1,4 @@
-package com.baoyz.pg.library;
+package com.baoyz.pg;
 
 import java.io.Writer;
 import java.util.LinkedHashSet;
