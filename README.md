@@ -83,9 +83,17 @@ public class ShowUserActivity extends Activity {
 
 ## 在你的项目中使用
 
+### 导入jar包
+
 将jar包导入到项目中，jar包只有10Kb大小，相当轻巧。
 <p>
 <a href="https://github.com/baoyongzhang/ParcelableGenerator/raw/master/pg1.0.jar" alt="download jar" size="20px">
-<font size="20px">Download jar</font>
+<font size="26px">Download jar</font>
 <a>
 </p>
+
+### 环境配置
+
+不知道大家是否用过butterknife，本项目的原理与butterknife类似，需要配置AnnotationProcessing
+
+#### Eclipse配置方法
