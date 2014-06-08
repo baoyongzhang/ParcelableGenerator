@@ -98,6 +98,21 @@ public class ShowUserActivity extends Activity {
 
 #### Eclipse配置方法
 
-* 项目右键->Properties
+* 项目右键->Properties->Java Compiler->Annotation Processing	开启 Enable project specific settings
 
 ![](https://raw.githubusercontent.com/baoyongzhang/test_pages/gh-pages/pg/image-1.jpg)
+
+* 然后展开Annotation Processing->Factory Path	开启Enable project specific settings
+
+![](https://raw.githubusercontent.com/baoyongzhang/test_pages/gh-pages/pg/image-2.jpg)
+
+* 点击AddJars 添加pg.jar
+
+![](https://raw.githubusercontent.com/baoyongzhang/test_pages/gh-pages/pg/image-3.jpg)
+
+* 最后点一直OK，弹出对话框点YES即可。
+
+
+
+
+
