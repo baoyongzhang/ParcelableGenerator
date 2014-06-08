@@ -85,5 +85,7 @@ public class ShowUserActivity extends Activity {
 
 将jar包导入到项目中，jar包只有10Kb大小，相当轻巧。
 <p>
-<a href=""https://github.com/baoyongzhang/ParcelableGenerator/raw/master/pg1.0.jar alt="download jar" size="20px">download jar<a>
+<a href="https://github.com/baoyongzhang/ParcelableGenerator/raw/master/pg1.0.jar" alt="download jar" size="20px">
+<font size="20px">Download jar</font>
+<a>
 </p>
