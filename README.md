@@ -217,7 +217,7 @@ public class User implements Parcelable {
 
 ```java
 Intent intent = new Intent(this, ShowUserActivity.class);
-// 调用PG将对象转换成Parcelable，传入Intent中
+// 传入Intent中
 intent.putExtra("user", user);
 startActivity(intent);
 ```
