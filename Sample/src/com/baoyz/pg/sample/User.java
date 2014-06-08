@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.baoyz.pg.Parcelable;
 
+@Parcelable
 public class User {
 
 	private String name;

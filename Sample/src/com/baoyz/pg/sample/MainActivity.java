@@ -26,7 +26,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		Intent intent = new Intent(this, ShowUserActivity.class);
+		
+		// 设置对象的属性
 		User user = new User();
 		user.setName("zhangsan");
 		user.setAge(18);
@@ -40,6 +41,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		user.setMap(map);
 		user.setStrArray(new String[] { "str1", "str2" });
 		user.setIntArray(new int[] { 1, 2, 3, 4, 5 });
+		
+		Intent intent = new Intent(this, ShowUserActivity.class);
+		// 调用PG将对象转换成Parcelable，传入Intent
 		intent.putExtra("user", PG.createParcelable(user));
 		startActivity(intent);
 	}
