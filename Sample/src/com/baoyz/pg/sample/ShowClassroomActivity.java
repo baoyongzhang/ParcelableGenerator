@@ -1,12 +1,12 @@
 package com.baoyz.pg.sample;
 
-import com.baoyz.pg.sample.model.User;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class ShowUserActivity extends Activity {
+import com.baoyz.pg.sample.model.Classroom;
+
+public class ShowClassroomActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -15,10 +15,10 @@ public class ShowUserActivity extends Activity {
 		TextView tv = (TextView) findViewById(R.id.textView);
 		
 		// 直接获取原对象类型
-		User user = getIntent().getParcelableExtra("user");
+		Classroom room = getIntent().getParcelableExtra("classroom");
 		
 		// 使用对象的属性，toString()所有属性值
-		tv.setText(user.toString());
+		tv.setText(room.toString());
 	}
 
 }

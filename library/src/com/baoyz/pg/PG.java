@@ -11,6 +11,14 @@ import android.os.Parcelable;
  */
 public class PG {
 
+	/**
+	 * 
+	 * {@link #convertParcelable(Object obj)}.
+	 * 
+	 * @param obj
+	 * @return
+	 */
+	@Deprecated
 	public static Parcelable createParcelable(Object obj) {
 		ProxyInfo pi = new ProxyInfo(obj.getClass().getCanonicalName());
 		try {
@@ -21,5 +29,26 @@ public class PG {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	/**
+	 * 
+	 * Object2Parcelable
+	 * 
+	 * @param obj
+	 * @return
+	 */
+	public static Parcelable convertParcelable(Object obj) {
+		return createParcelable(obj);
+	}
+
+	/**
+	 * Object2Parcelable
+	 * 
+	 * @param obj
+	 * @return
+	 */
+	public static <T> T convert(T obj) {
+		return (T) convertParcelable(obj);
 	}
 }

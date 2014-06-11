@@ -25,6 +25,9 @@
         <activity
             android:name="com.baoyz.pg.sample.ShowUserActivity" >
         </activity>
+        <activity
+            android:name="com.baoyz.pg.sample.ShowClassroomActivity" >
+        </activity>
     </application>
 
 </manifest>
