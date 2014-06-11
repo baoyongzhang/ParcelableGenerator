@@ -88,7 +88,7 @@ public class ShowUserActivity extends Activity {
 
 * Sample程序表达更加清楚。
 * 修改方法名createParcelable()为convertParcelable()，原方法@Deprecated 不影响原有代码。
-* 增加PG.convert(Object)方法，与createParcelable()功能类似，只是返回值不同，createParcelable()返回Parcelable类型，convert()返回类型与传入的对象类型一致，只是该对象已经支持序列化。使用场景直接上代码，如下。
+* 增加PG.convert(Object)方法，与createParcelable()功能类似，只是返回值不同，convertParcelable()返回Parcelable类型，convert()返回类型与传入的对象类型一致，只是该对象已经支持序列化。使用场景直接上代码，如下。
 
 ```java
 // 当传递对象的属性包含其他对象，或者是List，而该对象或List中的对象不支持序列化，那么直接传递将会出现null
