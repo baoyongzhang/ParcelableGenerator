@@ -12,9 +12,10 @@ ParcelableGenerator可以将任意对象转换为Parcelable类型，方便对象
 
 ParcelableGenerator可以解决Parcelable使用麻烦的问题，让使用Parcelable的简单性可以和使用Serializable相媲美。
 
+
 ## 使用方法
 
-例如我们有一个User类，用来保存用户的一些信息，我们需要使用@Parcelable修饰该类
+例如我们有一个User类，用来保存用户的一些信息，我们需要使用@Parcelable修饰该类，注意@Parcelable修饰的类必须有公有无参构造方法。
 
 ```java
 import com.baoyz.pg.Parcelable;
@@ -81,13 +82,46 @@ public class ShowUserActivity extends Activity {
 }
 ```
 
+## 更新介绍
+
+#### Version 1.1
+
+* Sample程序表达更加清楚。
+* 修改方法名createParcelable()为convertParcelable()，原方法@Deprecated 不影响原有代码。
+* 增加PG.convert(Object)方法，与createParcelable()功能类似，只是返回值不同，createParcelable()返回Parcelable类型，convert()返回类型与传入的对象类型一致，只是该对象已经支持序列化。使用场景直接上代码，如下。
+
+```java
+// 当传递对象的属性包含其他对象，或者是List，而该对象或List中的对象不支持序列化，那么直接传递将会出现null
+// 解决办法，将不支持序列化的类用@Parcelable修饰，在对象赋值的时候调用PG.convert()方法转换一下即可。
+// 例如一个教室对象
+Classroom room = new Classroom();
+// 教室中包含一个老师，Teacher类用@Parcelable修饰
+Teacher teacher = new Teacher("teacherName");
+// 将老师对象赋值给教室，调用PG.convert()对象，返回的还是Teacher对象，但是该对象已经支持序列化。
+room.setTeacher(PG.convert(teacher));
+// 再例如，教室中包含很多学生，使用List保存，Student类用@Parcelable修饰
+List<Student> students = new ArrayList<Student>();
+// 在给List添加学生对象的时候，调用PG.convert()方法转换
+students.add(PG.convert(new Student("stu1")));
+		students.add(PG.convert(new Student("stu2")));
+		students.add(PG.convert(new Student("stu3")));
+		room.setStudents(students);
+// 传递教室对象
+intent.putExtra("classroom", PG.convertParcelable(room));
+```
+
+#### Version 1.0
+
+* 将任意对象转换为Parcelable类型
+
+
 ## 在你的项目中使用
 
 ### 导入jar包
 
 将jar包导入到项目中，jar包只有10Kb大小，相当轻巧。
 <p>
-<a href="https://github.com/baoyongzhang/ParcelableGenerator/raw/master/pg1.0.jar" alt="download jar">
+<a href="https://github.com/baoyongzhang/ParcelableGenerator/raw/master/pg1.1.jar" alt="download jar">
 <font size="32px">Download jar</font>
 <a>
 </p>
@@ -111,143 +145,3 @@ public class ShowUserActivity extends Activity {
 ![](https://raw.githubusercontent.com/baoyongzhang/test_pages/gh-pages/pg/image-3.jpg)
 
 * 最后点一直OK，弹出对话框点YES即可。
-
-## 详细介绍
-
-不嫌啰嗦的可以继续看
-
-### 支持的数据类型
-
-* 涵盖Parcel可write的所有类型
-
-### 对比
-
-还是用上面的例子
-
-#### 使用之前
-
-* Model类使用之前
-
-```java
-public class User implements Parcelable {
-	
-	private String name;
-	private int age;
-	/* N个属性 */
-	
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public int getAge() {
-		return age;
-	}
-	
-	public void setAge(int age) {
-		this.age = age;
-	}
-
-	@Override
-	public int describeContents() {
-		return 0;
-	}
-
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeString(name);
-		dest.writeInt(age);
-		/* writeN个属性 */
-	}
-
-	public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
-		@Override
-		public User createFromParcel(Parcel source) {
-			User user = new User();
-			user.setName(source.readString());
-			user.setAge(source.readInt());
-			/* readN个属性 */
-			return user;
-		}
-
-		@Override
-		public User[] newArray(int size) {
-			return new User[size];
-		}
-	};
-}
-
-```
-
-* Model类使用之后
-
-```java
-@Parcelable
-public class User implements Parcelable {
-	
-	private String name;
-	private int age;
-	/* N个属性 */
-	
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public int getAge() {
-		return age;
-	}
-	
-	public void setAge(int age) {
-		this.age = age;
-	}
-}
-
-```
-
-如果属性很多的话，数据类型很多，就更麻烦了，使用ParcelableGenerator之后，一个注解搞定。
-
-* 传递使用之前
-
-```java
-Intent intent = new Intent(this, ShowUserActivity.class);
-// 传入Intent中
-intent.putExtra("user", user);
-startActivity(intent);
-```
-* 传递使用之后
-
-```java
-Intent intent = new Intent(this, ShowUserActivity.class);
-// 调用PG将对象转换成Parcelable，传入Intent中
-intent.putExtra("user", PG.createParcelable(user));
-startActivity(intent);
-```
-
-唯一增加代码量的地方就是传递的时候，需要使用PG.createParcelable()，但这么几个字母的代码量微乎其微吧。
-
-* 获取数据使用之前和之后是一模一样的，无需做任何处理
-
-```java
-// 直接获取原对象类型
-User user = getIntent().getParcelableExtra("user");
-		
-// 获取属性值
-user.getName();
-user.getAge();
-// ...
-```
-
-## 原理解说
-
-刚开始有做这个想法的时候，也是被Parcelable的写法虐的不行，用Serializable效率低心里不爽，毕竟有更高效的方法，所以就想能不能把Parcelable简化，开始想到了动态代理的原理，生成一个代理类，继承自原类，在这个代理类里面实现Parcelable，写那些繁琐的代码，后来发现Android里面没有java中动态编译的API，然后就Google一下，查到了Apache的BCEL，看了一些文章，感觉太复杂，然后继续找其他方法，忽然间想到了butterknife，隐约想起butterknife好像是动态生成了一些类，$$ViewInjector这样后缀的，然后就去看他的源码，还好内容很少。
-经过一番研究，发现butterknife使用的是APT(Annotation processing tool)，这里就不更详细的说，以后写一篇文章专门介绍APT，这里说一说基本原理。
-
-首先注册@Parcelable注解类型，APT会扫描源码如果有这个注解就会通知一个Processor处理，这个Processor会获取到@Parcelable注解所修饰的类信息，然后创建一个java文件到Source folder，java文件中的类继承修饰的类，就是个代理类（这里这么叫），然后实现Parcelable接口，利用反射获取属性值Parcel.write()以及Parcel.read()。
-调用PG.createParcelable()其实就是去寻找这个代理类，然后实例化代理类，将被代理类对象的值设置给代理类并返回。
