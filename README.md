@@ -57,7 +57,7 @@ user.setAge(18);
 		
 Intent intent = new Intent(this, ShowUserActivity.class);
 // 调用PG将对象转换成Parcelable，传入Intent中
-intent.putExtra("user", PG.createParcelable(user));
+intent.putExtra("user", PG.convertParcelable(user));
 startActivity(intent);
 ```
 
