@@ -103,9 +103,9 @@ room.setTeacher(PG.convert(teacher));
 List<Student> students = new ArrayList<Student>();
 // 在给List添加学生对象的时候，调用PG.convert()方法转换
 students.add(PG.convert(new Student("stu1")));
-		students.add(PG.convert(new Student("stu2")));
-		students.add(PG.convert(new Student("stu3")));
-		room.setStudents(students);
+students.add(PG.convert(new Student("stu2")));
+students.add(PG.convert(new Student("stu3")));
+room.setStudents(students);
 // 传递教室对象
 intent.putExtra("classroom", PG.convertParcelable(room));
 ```
