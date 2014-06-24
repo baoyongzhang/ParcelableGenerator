@@ -128,7 +128,7 @@ intent.putExtra("classroom", PG.convertParcelable(room));
 
 ### 环境配置
 
-不知道各位是否用过butterknife，本项目的原理与butterknife类似（其实我是抄的），需要配置AnnotationProcessing
+不知道各位是否用过butterknife，本项目的原理与butterknife类似，使用的APT，需要配置AnnotationProcessing
 
 #### Eclipse配置方法
 
