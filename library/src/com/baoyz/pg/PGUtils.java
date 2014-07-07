@@ -247,7 +247,11 @@ public class PGUtils {
 	}
 
 	public static void clone(Object source, Object dest) {
-		Field[] declaredFields = source.getClass().getDeclaredFields();
+		clone(source.getClass(), source, dest);
+	}
+
+	private static void clone(Class<?> clazz, Object source, Object dest) {
+		Field[] declaredFields = clazz.getDeclaredFields();
 		try {
 			for (Field field : declaredFields) {
 				field.setAccessible(true);
@@ -255,6 +259,9 @@ public class PGUtils {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		if (clazz.getSuperclass() != null && clazz.getSuperclass() != Object.class) {
+			clone(clazz.getSuperclass(), source, dest);
 		}
 	}
 }

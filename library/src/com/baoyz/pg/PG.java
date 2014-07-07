@@ -20,15 +20,7 @@ public class PG {
 	 */
 	@Deprecated
 	public static Parcelable createParcelable(Object obj) {
-		ProxyInfo pi = new ProxyInfo(obj.getClass().getCanonicalName());
-		try {
-			Class<?> clazz = Class.forName(pi.getFullName());
-			Constructor<?> constructor = clazz.getConstructor(obj.getClass());
-			return (Parcelable) constructor.newInstance(obj);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+		return convertParcelable(obj);
 	}
 
 	/**
@@ -39,7 +31,15 @@ public class PG {
 	 * @return
 	 */
 	public static Parcelable convertParcelable(Object obj) {
-		return createParcelable(obj);
+		ProxyInfo pi = new ProxyInfo(obj.getClass().getCanonicalName());
+		try {
+			Class<?> clazz = Class.forName(pi.getFullName());
+			Constructor<?> constructor = clazz.getConstructor(obj.getClass());
+			return (Parcelable) constructor.newInstance(obj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	/**

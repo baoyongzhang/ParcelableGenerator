@@ -1,5 +1,6 @@
 package com.baoyz.pg.sample;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,9 +8,12 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 
 import com.baoyz.pg.PG;
+import com.baoyz.pg.PGUtils;
 import com.baoyz.pg.sample.model.Classroom;
 import com.baoyz.pg.sample.model.Student;
 import com.baoyz.pg.sample.model.Teacher;
@@ -34,7 +38,7 @@ public class MainActivity extends Activity {
 		user.setId(11111l);
 		user.setVip(true);
 		user.setAlias(Arrays.asList("alias1", "alias2", "alias3"));
-
+		
 		Intent intent = new Intent(this, ShowUserActivity.class);
 		// 调用PG将对象转换成Parcelable，传入Intent
 		intent.putExtra("user", PG.convertParcelable(user));
