@@ -101,12 +101,19 @@ public class PGUtils {
 				dest.writeFileDescriptor((FileDescriptor) field.get(target));
 			} else if (field.getType().equals(IInterface.class)) {
 				dest.writeStrongInterface((IInterface) field.get(target));
-			} else {
+			} else if(checkSerializable(field)){
 				dest.writeValue(field.get(target));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private static boolean checkSerializable(Field field) {
+		return field.getType().isPrimitive()
+				|| Serializable.class.isAssignableFrom(field.getType())
+				|| Parcelable.class.isAssignableFrom(field.getType());
+//		return true;
 	}
 
 	public static void read(Object obj, Parcel source) {
@@ -126,6 +133,9 @@ public class PGUtils {
 
 	private static void readValue(Parcel source, Field field, Object target) {
 		try {
+			if (!checkSerializable(field)) {
+				return;
+			}
 			field.setAccessible(true);
 			if (field.getType().equals(String.class)) {
 				field.set(target, source.readString());
@@ -237,7 +247,7 @@ public class PGUtils {
 				field.set(target, source.readFileDescriptor());
 			} else if (field.getType().equals(IInterface.class)) {
 				// TODO
-			} else {
+			} else if(checkSerializable(field)){
 				field.set(target,
 						source.readValue(target.getClass().getClassLoader()));
 			}
@@ -260,7 +270,8 @@ public class PGUtils {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if (clazz.getSuperclass() != null && clazz.getSuperclass() != Object.class) {
+		if (clazz.getSuperclass() != null
+				&& clazz.getSuperclass() != Object.class) {
 			clone(clazz.getSuperclass(), source, dest);
 		}
 	}
