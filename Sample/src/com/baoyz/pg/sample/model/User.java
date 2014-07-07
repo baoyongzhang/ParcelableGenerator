@@ -5,11 +5,9 @@ import java.util.List;
 import com.baoyz.pg.Parcelable;
 
 @Parcelable
-public class User {
+public class User extends Person{
 
 	private long id;
-	private String name;
-	private int age;
 	private boolean vip;
 	private double balance;
 	private List<String> alias;
@@ -20,22 +18,6 @@ public class User {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
 	}
 
 	public boolean isVip() {
@@ -64,7 +46,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", age=" + age + ", vip="
+		return "User [id=" + id + ", name=" + getName() + ", age=" + getAge() + ", vip="
 				+ vip + ", balance=" + balance + ", alias=" + alias + "]";
 	}
 

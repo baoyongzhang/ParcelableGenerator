@@ -24,10 +24,17 @@ import android.util.SparseBooleanArray;
 public class PGUtils {
 
 	public static void write(Object obj, Parcel dest) {
-		Field[] declaredFields = obj.getClass().getSuperclass()
-				.getDeclaredFields();
+		write(obj, obj.getClass().getSuperclass(), dest);
+	}
+
+	private static void write(Object obj, Class<?> clazz, Parcel dest) {
+		Field[] declaredFields = clazz.getDeclaredFields();
 		for (Field field : declaredFields) {
 			PGUtils.writeValue(dest, field, obj);
+		}
+		// super class
+		if (clazz.getSuperclass() != null) {
+			write(obj, clazz.getSuperclass(), dest);
 		}
 	}
 
@@ -103,10 +110,17 @@ public class PGUtils {
 	}
 
 	public static void read(Object obj, Parcel source) {
-		Field[] declaredFields = obj.getClass().getSuperclass()
-				.getDeclaredFields();
+		read(obj, obj.getClass().getSuperclass(), source);
+	}
+
+	private static void read(Object obj, Class<?> clazz, Parcel source) {
+		Field[] declaredFields = clazz.getDeclaredFields();
 		for (Field field : declaredFields) {
 			PGUtils.readValue(source, field, obj);
+		}
+		// super class
+		if (clazz.getSuperclass() != null) {
+			read(obj, clazz.getSuperclass(), source);
 		}
 	}
 
