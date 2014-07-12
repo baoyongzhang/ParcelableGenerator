@@ -113,8 +113,11 @@ public class PGUtils {
 			} else if (field.getType().equals(short.class)) {
 				field.setShort(target, (short) source.readInt());
 			} else {
-				field.set(target,
-						source.readValue(target.getClass().getClassLoader()));
+				Object readValue = source.readValue(target.getClass().getClassLoader());
+				if (readValue != null) {
+					field.set(target,
+							readValue);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
