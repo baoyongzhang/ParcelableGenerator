@@ -53,11 +53,7 @@ public class PGUtils {
 				dest.writeInt(field.getShort(target));
 			} else {
 				Object value = field.get(target);
-				try {
-					dest.writeValue(value);
-				} catch (Exception e) {
-					dest.writeValue(PG.convert(value));
-				}
+				ParcelUtil.writeValue(dest, value);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

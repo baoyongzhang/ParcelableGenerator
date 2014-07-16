@@ -14,10 +14,10 @@ public class ShowClassroomActivity extends Activity {
 		setContentView(R.layout.activity_show);
 		TextView tv = (TextView) findViewById(R.id.textView);
 		
-		// 直接获取原对象类型
+		// get model object
 		Classroom room = getIntent().getParcelableExtra("classroom");
 		
-		// 使用对象的属性，toString()所有属性值
+		// use model
 		tv.setText(room.toString());
 	}
 
