@@ -19,7 +19,8 @@ import android.util.SparseBooleanArray;
 /**
  * 
  * @author baoyz
- * @date 2014-6-8ионГ12:27:14
+ * @date 2014-6-8
+ *
  */
 public class PGUtils {
 
