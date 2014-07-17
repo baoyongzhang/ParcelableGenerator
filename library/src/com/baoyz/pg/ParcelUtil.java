@@ -3,6 +3,7 @@ package com.baoyz.pg;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import android.os.Bundle;
 import android.os.IBinder;
@@ -47,6 +48,14 @@ public class ParcelUtil {
 	private static final int VAL_CHARSEQUENCEARRAY = 24;
 
 	public static void writeValue(Parcel dest, Object v) {
+		try {
+			writeValueInternal(dest, v);
+		} catch (Exception e) {
+			writeValueInternal(dest, PG.convert(v));
+		}
+	}
+
+	private static void writeValueInternal(Parcel dest, Object v) {
 		if (v == null) {
 			dest.writeInt(VAL_NULL);
 		} else if (v instanceof String) {
@@ -57,7 +66,7 @@ public class ParcelUtil {
 			dest.writeInt((Integer) v);
 		} else if (v instanceof Map) {
 			dest.writeInt(VAL_MAP);
-			dest.writeMap((Map) v);
+			writeMap(dest, (Map) v);
 		} else if (v instanceof Bundle) {
 			// Must be before Parcelable
 			dest.writeInt(VAL_BUNDLE);
@@ -86,10 +95,10 @@ public class ParcelUtil {
 			TextUtils.writeToParcel((CharSequence) v, dest, 0);
 		} else if (v instanceof List) {
 			dest.writeInt(VAL_LIST);
-			dest.writeList((List) v);
+			writeList(dest, (List) v);
 		} else if (v instanceof SparseArray) {
 			dest.writeInt(VAL_SPARSEARRAY);
-			dest.writeSparseArray((SparseArray) v);
+			writeSparseArray(dest, (SparseArray<Object>) v);
 		} else if (v instanceof boolean[]) {
 			dest.writeInt(VAL_BOOLEANARRAY);
 			dest.writeBooleanArray((boolean[]) v);
@@ -116,7 +125,7 @@ public class ParcelUtil {
 			dest.writeParcelableArray((Parcelable[]) v, 0);
 		} else if (v instanceof Object[]) {
 			dest.writeInt(VAL_OBJECTARRAY);
-			dest.writeArray((Object[]) v);
+			writeArray(dest, (Object[]) v);
 		} else if (v instanceof int[]) {
 			dest.writeInt(VAL_INTARRAY);
 			dest.writeIntArray((int[]) v);
@@ -132,6 +141,62 @@ public class ParcelUtil {
 			dest.writeSerializable((Serializable) v);
 		} else {
 			throw new RuntimeException("Parcel: unable to marshal value " + v);
+		}
+	}
+
+	private static void writeMap(Parcel dest, Map<Object, Object> val) {
+		if (val == null) {
+			dest.writeInt(-1);
+			return;
+		}
+		Set<Map.Entry<Object, Object>> entries = val.entrySet();
+		dest.writeInt(entries.size());
+		for (Map.Entry<Object, Object> e : entries) {
+			writeValue(dest, e.getKey());
+			writeValue(dest, e.getValue());
+		}
+	}
+
+	private static void writeList(Parcel dest, List val) {
+		if (val == null) {
+			dest.writeInt(-1);
+			return;
+		}
+		int N = val.size();
+		int i = 0;
+		dest.writeInt(N);
+		while (i < N) {
+			writeValue(dest, val.get(i));
+			i++;
+		}
+	}
+
+	private static void writeSparseArray(Parcel dest, SparseArray<Object> val) {
+		if (val == null) {
+			dest.writeInt(-1);
+			return;
+		}
+		int N = val.size();
+		dest.writeInt(N);
+		int i = 0;
+		while (i < N) {
+			dest.writeInt(val.keyAt(i));
+			writeValue(dest, val.valueAt(i));
+			i++;
+		}
+	}
+
+	private static void writeArray(Parcel dest, Object[] val) {
+		if (val == null) {
+			dest.writeInt(-1);
+			return;
+		}
+		int N = val.length;
+		int i = 0;
+		dest.writeInt(N);
+		while (i < N) {
+			writeValue(dest, val[i]);
+			i++;
 		}
 	}
 }

@@ -53,11 +53,7 @@ public class PGUtils {
 				dest.writeInt(field.getShort(target));
 			} else {
 				Object value = field.get(target);
-				try {
-					dest.writeValue(value);
-				} catch (Exception e) {
-					dest.writeValue(PG.convert(value));
-				}
+				ParcelUtil.writeValue(dest, value);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -113,11 +109,8 @@ public class PGUtils {
 			} else if (field.getType().equals(short.class)) {
 				field.setShort(target, (short) source.readInt());
 			} else {
-				Object readValue = source.readValue(target.getClass().getClassLoader());
-				if (readValue != null) {
-					field.set(target,
-							readValue);
-				}
+				field.set(target,
+						source.readValue(target.getClass().getClassLoader()));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
