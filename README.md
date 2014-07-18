@@ -87,6 +87,7 @@ public class ShowUserActivity extends Activity {
 #### Version 2.0
 
 * 修复BUG，使用基本数据类型包装类会出现问题等。
+* 增加 @ParcelIgnore 注解，修饰在Model的Field上面，可以忽略该字段不进行序列化。
 * 使用更加方便，当Model中的属性是其他对象，或者List中包含其他对象，该对象的类用 @Parcelable 声明之后无需加转换代码。
 
 ```java
