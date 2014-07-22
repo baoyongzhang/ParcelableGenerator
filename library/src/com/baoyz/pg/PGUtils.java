@@ -138,6 +138,6 @@ public class PGUtils {
 	}
 
 	private static void log(String log) {
-		Log.i("byz", log);
+//		Log.i("byz", log);
 	}
 }
