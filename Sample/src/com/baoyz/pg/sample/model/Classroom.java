@@ -7,8 +7,25 @@ import com.baoyz.pg.Parcelable;
 @Parcelable
 public class Classroom {
 
+	private String name;
 	private Teacher teacher;
 	private List<Student> students;
+	
+	public Classroom() {
+	}
+
+	public Classroom(String name) {
+		super();
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public Teacher getTeacher() {
 		return teacher;
@@ -28,7 +45,8 @@ public class Classroom {
 
 	@Override
 	public String toString() {
-		return "Classroom [teacher=" + teacher + ", students=" + students + "]";
+		return "Classroom [name=" + name + ", teacher=" + teacher
+				+ ", students=" + students + "]";
 	}
 
 }

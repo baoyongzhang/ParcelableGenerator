@@ -37,7 +37,6 @@ public class PG {
 			Constructor<?> constructor = clazz.getConstructor(obj.getClass());
 			return (Parcelable) constructor.newInstance(obj);
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		return null;
 	}

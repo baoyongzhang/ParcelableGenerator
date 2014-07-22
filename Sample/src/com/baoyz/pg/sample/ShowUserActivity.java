@@ -14,10 +14,10 @@ public class ShowUserActivity extends Activity {
 		setContentView(R.layout.activity_show);
 		TextView tv = (TextView) findViewById(R.id.textView);
 		
-		// 直接获取原对象类型
+		// get model object
 		User user = getIntent().getParcelableExtra("user");
 		
-		// 使用对象的属性，toString()所有属性值
+		// use model
 		tv.setText(user.toString());
 	}
 
