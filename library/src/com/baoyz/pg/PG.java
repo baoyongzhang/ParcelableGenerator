@@ -31,6 +31,9 @@ public class PG {
 	 * @return
 	 */
 	public static Parcelable convertParcelable(Object obj) {
+		if (obj instanceof Parcelable) {
+			return (Parcelable) obj;
+		}
 		ProxyInfo pi = new ProxyInfo(obj.getClass().getCanonicalName());
 		try {
 			Class<?> clazz = Class.forName(pi.getFullName());

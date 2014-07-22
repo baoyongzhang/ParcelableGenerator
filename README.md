@@ -84,31 +84,37 @@ public class ShowUserActivity extends Activity {
 
 ## 更新介绍
 
-#### Version 1.1
+#### Version 2.0
 
-* Sample程序表达更加清楚。
-* 修改方法名createParcelable()为convertParcelable()，原方法@Deprecated 不影响原有代码。
-* 增加PG.convert(Object)方法，与createParcelable()功能类似，只是返回值不同，convertParcelable()返回Parcelable类型，convert()返回类型与传入的对象类型一致，只是该对象已经支持序列化。使用场景直接上代码，如下。
+* 修复BUG，使用基本数据类型包装类会出现问题等。
+* 增加 @ParcelIgnore 注解，修饰在Model的Field上面，可以忽略该字段不进行序列化。
+* 使用更加方便，当Model中的属性是其他对象，或者List中包含其他对象，该对象的类用 @Parcelable 声明之后无需加转换代码。
 
 ```java
 // 当传递对象的属性包含其他对象，或者是List，而该对象或List中的对象不支持序列化，那么直接传递将会出现null
-// 解决办法，将不支持序列化的类用@Parcelable修饰，在对象赋值的时候调用PG.convert()方法转换一下即可。
+// 解决办法，将不支持序列化的类用@Parcelable修饰
 // 例如一个教室对象
 Classroom room = new Classroom();
 // 教室中包含一个老师，Teacher类用@Parcelable修饰
 Teacher teacher = new Teacher("teacherName");
-// 将老师对象赋值给教室，调用PG.convert()对象，返回的还是Teacher对象，但是该对象已经支持序列化。
-room.setTeacher(PG.convert(teacher));
+// 将老师对象直接赋值给教室
+room.setTeacher(teacher);
 // 再例如，教室中包含很多学生，使用List保存，Student类用@Parcelable修饰
 List<Student> students = new ArrayList<Student>();
-// 在给List添加学生对象的时候，调用PG.convert()方法转换
-students.add(PG.convert(new Student("stu1")));
-students.add(PG.convert(new Student("stu2")));
-students.add(PG.convert(new Student("stu3")));
+// 直接创建Student对象添加到List中
+students.add(new Student("stu1"));
+students.add(new Student("stu2"));
+students.add(new Student("stu3"));
 room.setStudents(students);
-// 传递教室对象
+// 传递教室对象，调用转换方法，此时内部会自动将Teacher、和List中的Student对象转为Parcelable类型并传递
 intent.putExtra("classroom", PG.convertParcelable(room));
 ```
+
+#### Version 1.1
+
+* Sample程序表达更加清楚。
+* 修改方法名createParcelable()为convertParcelable()，原方法@Deprecated 不影响原有代码。
+* 增加PG.convert(Object)方法，与createParcelable()功能类似，只是返回值不同，convertParcelable()返回Parcelable类型，convert()返回类型与传入的对象类型一致，只是该对象已经支持序列化。
 
 #### Version 1.0
 
@@ -121,7 +127,7 @@ intent.putExtra("classroom", PG.convertParcelable(room));
 
 将jar包导入到项目中，jar包只有10Kb大小，相当轻巧。
 <p>
-<a href="https://github.com/baoyongzhang/ParcelableGenerator/raw/master/pg-1.2.jar" alt="download jar">
+<a href="https://github.com/baoyongzhang/ParcelableGenerator/raw/master/pg-2.0.1.jar" alt="download jar">
 <font size="32px">Download jar</font>
 <a>
 </p>
