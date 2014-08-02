@@ -53,4 +53,9 @@ public class PG {
 	public static <T> T convert(T obj) {
 		return (T) convertParcelable(obj);
 	}
+
+	public static <T> T unconvert(Parcelable parcel) {
+		ParcelInfo info = new ParcelInfo(parcel);
+		return info.getSource();
+	}
 }

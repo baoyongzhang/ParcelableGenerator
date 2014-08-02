@@ -127,6 +127,9 @@ public class PGUtils {
 		try {
 			for (Field field : declaredFields) {
 				field.setAccessible(true);
+				if (Modifier.isFinal(field.getModifiers())) {
+					continue;
+				}
 				field.set(dest, field.get(source));
 			}
 		} catch (Exception e) {
