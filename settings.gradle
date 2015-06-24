@@ -1,0 +1,1 @@
+include ':demo', ':annotation', ':complier', ':core'
