@@ -23,61 +23,27 @@
  */
 package com.baoyz.pg;
 
-import android.os.Parcelable;
-
-import java.lang.reflect.Constructor;
-
 /**
  * ParcelableGenerator
  * Created by baoyz on 15/6/24.
  */
-public class PG {
+public class ParcelProxyInfo {
 
-    /**
-     *
-     * {@link #convertParcelable(Object obj)}.
-     *
-     * @param obj
-     * @return
-     */
-    @Deprecated
-    public static Parcelable createParcelable(Object obj) {
-        return convertParcelable(obj);
+    private static final String SUFFIX = "$$Parcelable";
+
+    private String packageName;
+    private String proxyName;
+    private String className;
+
+    public ParcelProxyInfo(String qualifiedName) {
+        super();
+        packageName = qualifiedName
+                .substring(0, qualifiedName.lastIndexOf("."));
+        className = qualifiedName.substring(packageName.length() + 1);
+        proxyName = className + SUFFIX;
     }
 
-    /**
-     *
-     * Object2Parcelable
-     *
-     * @param obj
-     * @return
-     */
-    public static Parcelable convertParcelable(Object obj) {
-        if (obj instanceof Parcelable) {
-            return (Parcelable) obj;
-        }
-        ParcelProxyInfo pi = new ParcelProxyInfo(obj.getClass().getCanonicalName());
-        try {
-            Class<?> clazz = Class.forName(pi.getFullName());
-            Constructor<?> constructor = clazz.getConstructor(obj.getClass());
-            return (Parcelable) constructor.newInstance(obj);
-        } catch (Exception e) {
-        }
-        return null;
-    }
-
-    /**
-     * Object2Parcelable
-     *
-     * @param obj
-     * @return
-     */
-    public static <T> T convert(T obj) {
-        return (T) convertParcelable(obj);
-    }
-
-    public static <T> T unconvert(Parcelable parcel) {
-        ParcelInfo info = new ParcelInfo(parcel);
-        return info.getSource();
+    public String getFullName() {
+        return packageName + "." + proxyName;
     }
 }
