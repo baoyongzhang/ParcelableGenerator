@@ -1,5 +1,7 @@
 package com.baoyz.pg;
 
+import com.baoyz.pg.annotation.Parcelable;
+
 import java.io.Writer;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -15,7 +17,7 @@ import javax.tools.JavaFileObject;
 /**
  * 
  * @author baoyz
- * @date 2014-6-8ионГ1:34:35
+ * @date 2014-6-8О©╫О©╫О©╫О©╫1:34:35
  */
 public class PGProcessor extends AbstractProcessor {
 
