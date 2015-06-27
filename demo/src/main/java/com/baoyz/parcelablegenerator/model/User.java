@@ -1,6 +1,6 @@
 package com.baoyz.parcelablegenerator.model;
 
-import com.baoyz.pg.annotation.Parcelable;
+import com.baoyz.pg.Parcelable;
 
 import java.util.List;
 

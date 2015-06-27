@@ -2,5 +2,97 @@ apply plugin: 'java'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':annotation')
+    compile project(':core')
+}
+
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
+apply plugin: 'maven'
+// This is the library version used when deploying the artifact
+version = "1.0.7"
+
+def siteUrl = 'https://github.com/baoyongzhang/ParcelableGenerator'      // 项目的主页
+def gitUrl = 'https://github.com/baoyongzhang/ParcelableGenerator.git'   // Git仓库的url
+group = "com.baoyz.pg"                                        // Maven Group ID for the artifact，一般填你唯一的包名
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+}
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'jar'
+                // Add your description here
+                name 'ParcelableGenerator'    //项目描述
+                url siteUrl
+                // Set your license
+                licenses {
+                    license {
+                        name 'The MIT License (MIT)'
+                        url 'http://baoyz.com/licenses/LICENSE.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'baoyongzhang'        //填写的一些基本信息
+                        name 'baoyongzhang'
+                        email 'baoyz94@gmail.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            if (plugins.hasPlugin('war')) {
+                from components.web
+            } else {
+                from components.java
+            }
+
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+}
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = "ParcelableGenerator"    //发布到JCenter上的项目名字
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["MIT"]
+        publish = true
+    }
 }

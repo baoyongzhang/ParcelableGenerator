@@ -1,1 +1,1 @@
-include ':demo', ':annotation', ':complier', ':core'
+include ':demo', ':core', ':complier'

@@ -25,8 +25,6 @@ package com.baoyz.pg;
 
 import android.os.Parcel;
 
-import com.baoyz.pg.annotation.ParcelIgnore;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 

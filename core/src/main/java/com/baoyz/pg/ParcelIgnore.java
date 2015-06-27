@@ -21,18 +21,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.baoyz.pg.annotation;
+package com.baoyz.pg;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.CLASS;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * ParcelableGenerator
  * Created by baoyz on 15/6/24.
  */
-@Retention(CLASS) @Target(TYPE)
-public @interface Parcelable {
+@Retention(RUNTIME) @Target(FIELD)
+public @interface ParcelIgnore {
 }

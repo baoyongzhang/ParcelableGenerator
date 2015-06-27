@@ -23,8 +23,6 @@
  */
 package com.baoyz.pg;
 
-import com.baoyz.pg.annotation.Parcelable;
-
 import java.io.Writer;
 import java.util.Set;
 
@@ -45,7 +43,7 @@ import javax.tools.JavaFileObject;
  */
 
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
-@SupportedAnnotationTypes("com.baoyz.pg.annotation.Parcelable")
+@SupportedAnnotationTypes("com.baoyz.pg.Parcelable")
 public class PGProcessor extends AbstractProcessor{
 
     private Filer filer;
