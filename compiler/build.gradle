@@ -8,12 +8,11 @@ dependencies {
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 apply plugin: 'maven'
-// This is the library version used when deploying the artifact
-version = "1.0.7"
+version = "2.1.0"
 
-def siteUrl = 'https://github.com/baoyongzhang/ParcelableGenerator'      // 项目的主页
-def gitUrl = 'https://github.com/baoyongzhang/ParcelableGenerator.git'   // Git仓库的url
-group = "com.baoyz.pg"                                        // Maven Group ID for the artifact，一般填你唯一的包名
+def siteUrl = 'https://github.com/baoyongzhang/ParcelableGenerator'
+def gitUrl = 'https://github.com/baoyongzhang/ParcelableGenerator.git'
+group = "com.baoyz.pg"
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -33,14 +32,11 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 }
 install {
     repositories.mavenInstaller {
-        // This generates POM.xml with proper parameters
         pom {
             project {
                 packaging 'jar'
-                // Add your description here
                 name 'ParcelableGenerator'    //项目描述
                 url siteUrl
-                // Set your license
                 licenses {
                     license {
                         name 'The MIT License (MIT)'

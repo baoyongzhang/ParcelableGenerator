@@ -1,13 +1,17 @@
 apply plugin: 'java'
-//apply plugin: 'war'
+apply plugin: 'idea'
 
 configurations {
     provided
 }
-sourceSets {
-    main { compileClasspath += configurations.provided }
-}
 
+sourceSets.main.compileClasspath += [configurations.provided]
+
+idea {
+    module{
+        scopes.PROVIDED.plus += [configurations.provided]
+    }
+}
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     provided 'com.google.android:android:+'
@@ -17,12 +21,11 @@ dependencies {
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 apply plugin: 'maven'
-// This is the library version used when deploying the artifact
-version = "1.0.7"
+version = "2.1.0"
 
-def siteUrl = 'https://github.com/baoyongzhang/ParcelableGenerator'      // 项目的主页
-def gitUrl = 'https://github.com/baoyongzhang/ParcelableGenerator.git'   // Git仓库的url
-group = "com.baoyz.pg"                                        // Maven Group ID for the artifact，一般填你唯一的包名
+def siteUrl = 'https://github.com/baoyongzhang/ParcelableGenerator'
+def gitUrl = 'https://github.com/baoyongzhang/ParcelableGenerator.git'
+group = "com.baoyz.pg"
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -41,16 +44,12 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc.destinationDir
 }
 install {
-    // 通过install命令在build/poms下生成pom文件，依赖maven插件
     repositories.mavenInstaller {
-        // This generates POM.xml with proper parameters
         pom {
             project {
                 packaging 'jar'
-                // Add your description here
-                name 'ParcelableGenerator'    //项目描述
+                name 'ParcelableGenerator'
                 url siteUrl
-                // Set your license
                 licenses {
                     license {
                         name 'The MIT License (MIT)'
@@ -59,7 +58,7 @@ install {
                 }
                 developers {
                     developer {
-                        id 'baoyongzhang'        //填写的一些基本信息
+                        id 'baoyongzhang'
                         name 'baoyongzhang'
                         email 'baoyz94@gmail.com'
                     }
@@ -99,7 +98,7 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = "maven"
-        name = "ParcelableGenerator"	//发布到JCenter上的项目名字
+        name = "ParcelableGenerator"
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["MIT"]
