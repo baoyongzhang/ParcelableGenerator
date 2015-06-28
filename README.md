@@ -1,5 +1,6 @@
 ParcelableGenerator
 ===================
+[ ![Download](https://api.bintray.com/packages/baoyongzhang/maven/ParcelableGenerator/images/download.svg) ](https://bintray.com/baoyongzhang/maven/ParcelableGenerator/_latestVersion)
 ## 介绍
 ParcelableGenerator可以将任意对象转换为Parcelable类型，方便对象传输。
 
@@ -122,6 +123,15 @@ intent.putExtra("classroom", PG.convertParcelable(room));
 
 
 ## 在你的项目中使用
+
+### Gradle
+
+```
+dependencies {
+    provided 'com.baoyz.pg:compiler:2.1.0'
+    compile 'com.baoyz.pg:core:2.1.0'
+}
+```
 
 ### 导入jar包
 
