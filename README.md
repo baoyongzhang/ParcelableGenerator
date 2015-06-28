@@ -135,16 +135,16 @@ dependencies {
 
 ### 导入jar包
 
-将jar包导入到项目中，jar包只有10Kb大小，相当轻巧。
+或者直接将jar包导入到项目中，包含两个
 <p>
-<a href="https://github.com/baoyongzhang/ParcelableGenerator/raw/master/pg-2.0.2.jar" alt="download jar">
+<a href="https://github.com/baoyongzhang/ParcelableGenerator/releases" alt="download jar">
 <font size="32px">Download jar</font>
 <a>
 </p>
 
-### 环境配置
+#### 环境配置
 
-不知道各位是否用过butterknife，本项目的原理与butterknife类似，使用的APT，需要配置AnnotationProcessing
+需要对`pg-compiler-VERSION.jar`进行配置。
 
 #### Eclipse配置方法
 
@@ -156,7 +156,7 @@ dependencies {
 
 ![](https://raw.githubusercontent.com/baoyongzhang/test_pages/gh-pages/pg/image-2.jpg)
 
-* 点击AddJars 添加pg.jar
+* 点击AddJars 添加pg-compiler-VERSION.jar
 
 ![](https://raw.githubusercontent.com/baoyongzhang/test_pages/gh-pages/pg/image-3.jpg)
 
