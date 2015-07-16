@@ -132,32 +132,3 @@ dependencies {
     compile 'com.baoyz.pg:core:2.1.0'
 }
 ```
-
-### 导入jar包
-
-或者直接将jar包导入到项目中，包含两个
-<p>
-<a href="https://github.com/baoyongzhang/ParcelableGenerator/releases" alt="download jar">
-<font size="32px">Download jar</font>
-<a>
-</p>
-
-#### 环境配置
-
-需要对`pg-compiler-VERSION.jar`进行配置。
-
-#### Eclipse配置方法
-
-* 项目右键->Properties->Java Compiler->Annotation Processing	开启 Enable project specific settings
-
-![](https://raw.githubusercontent.com/baoyongzhang/test_pages/gh-pages/pg/image-1.jpg)
-
-* 然后展开Annotation Processing->Factory Path	开启Enable project specific settings
-
-![](https://raw.githubusercontent.com/baoyongzhang/test_pages/gh-pages/pg/image-2.jpg)
-
-* 点击AddJars 添加pg-compiler-VERSION.jar
-
-![](https://raw.githubusercontent.com/baoyongzhang/test_pages/gh-pages/pg/image-3.jpg)
-
-* 最后点一直OK，弹出对话框点YES即可。
