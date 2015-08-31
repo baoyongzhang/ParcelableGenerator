@@ -83,6 +83,86 @@ public class ShowUserActivity extends Activity {
 }
 ```
 
+#### 对于继承: `@Parcelable` 自动作用于被继承的类, 子类需修饰, 但父类无需修饰. 比如:
+
+```java
+public class Base {
+    private String str;
+
+    public String getStr() {
+        return str;
+    }
+
+    public void setStr(String str) {
+        this.str = str;
+    }
+}
+```
+
+注意, 上面的 `Base` 是没有修饰的 POD.
+
+```java
+@Parcelable
+public class Child extends Base {
+    private int i;
+
+    public int getI() {
+        return i;
+    }
+
+    public voiid setI(int i) {
+        this.i = i;
+    }
+}
+```
+
+注意, 子类 `Child` 是被 `@Parcelable` 修饰的.
+
+此时, 我们有如下代码:
+
+```java
+        Intent intent = new Intent(this, MainActivity.class);
+        Child child = new Child();
+        child.setStr("child");      // 基类成员
+        child.setI(1234);           // 子类成员
+        intent.putExtra("bean", PG.convertParcelable(child));
+```
+基类 `str` 和子类 `i` 两个字段均可被 Parcel.
+#### 对于组合: 需要被组合的对象需 `@Parcelable` 修饰. 例如:
+```java
+@Parcelable
+public class X {
+    private String str;
+
+    public String getStr() {
+        return str;
+    }
+
+    public void setStr(String str) {
+        this.str = str;
+    }
+}
+```
+
+```java
+@Parcelable
+public class Y {
+    private X x;
+
+    public X getX() {
+        return x;
+    }
+
+    public void setX(X x) {
+        this.x = x;
+    }
+}
+```
+
+注意, `X` 和 `Y` 都需要 `@Parcelable` 修饰.
+
+</br>
+
 ## 更新介绍
 
 #### Version 2.0
