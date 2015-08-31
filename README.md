@@ -208,7 +208,7 @@ intent.putExtra("classroom", PG.convertParcelable(room));
 
 ```
 dependencies {
-    provided 'com.baoyz.pg:compiler:2.1.0'
-    compile 'com.baoyz.pg:core:2.1.0'
+    provided 'com.baoyz.pg:compiler:2.1.1'
+    compile 'com.baoyz.pg:core:2.1.1'
 }
 ```
