@@ -42,7 +42,7 @@ import javax.tools.JavaFileObject;
  * Created by baoyz on 15/6/24.
  */
 
-@SupportedSourceVersion(SourceVersion.RELEASE_7)
+@SupportedSourceVersion(SourceVersion.RELEASE_6)
 @SupportedAnnotationTypes("com.baoyz.pg.Parcelable")
 public class PGProcessor extends AbstractProcessor{
 
